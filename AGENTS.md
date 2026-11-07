@@ -41,7 +41,7 @@ Do not ask about anything you can decide from the code or from this playbook.
 | 7 | Cards | `playbook/07-cards.md` | `docs/assets/*.svg` light + dark |
 | 8 | README | `playbook/08-readme.md` | new `README.md` |
 | 9 | Review | `playbook/09-review.md` | everything verified |
-| 10 | Ship | `playbook/10-ship.md` | pull request + report to the user |
+| 10 | Ship | `playbook/10-ship.md` | pull request, report, cleanup the user chose |
 
 Maintaining several projects? See `playbook/11-many-projects.md` (one project per session, a queue file).
 
@@ -55,7 +55,9 @@ Maintaining several projects? See `playbook/11-many-projects.md` (one project pe
 4. **Fix only what blocks running, safety, or the docs.** Pin a dependency, replace a retired API, fix a crash on the
    main path — yes. Refactors, new features, style rewrites — no. List other problems in the README's "What's next".
 5. **Ask before anything outward-facing or destructive**: pushing, opening PRs, archiving, deleting, rewriting history,
-   deploying, spending money. Approval for one repo doesn't carry to the next.
+   deploying, spending money. Approval for one repo doesn't carry to the next. This includes **cleanup**: at the end,
+   list what you created locally (servers, containers, clones, envs, data) and let the user choose what to remove
+   (`playbook/10-ship.md`).
 6. **Look at what you make.** Screenshot every card and sample GIF frames; fix overlaps, overflow and unreadable text
    before shipping. Don't report "done" on visuals you haven't seen.
 7. **No AI attribution.** Commits, PR descriptions, READMEs and code must not credit the agent:

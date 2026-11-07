@@ -20,5 +20,8 @@ Needs you
 - TODO(owner): <items>
 - <anything skipped and why>
 
-Still running: <servers/containers> — say if I should stop them.
+Cleanup — what should I do with these?
+  <servers/containers, clone, envs, data — with sizes>
+  1) keep running  2) stop only  3) full cleanup  4) pick items
+  (unpushed/local-only: <anything that would be lost>)
 ```

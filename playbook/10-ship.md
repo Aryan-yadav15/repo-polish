@@ -34,6 +34,21 @@ Never merge it yourself unless the user says so.
 Send the user a message following `templates/REPORT.md`: link, what changed, what was verified,
 **secrets to rotate**, TODOs only they can fill, and anything you couldn't do.
 
-## Clean up
+## Clean up — ask, don't assume
 
-Stop servers and containers you started (`docker rm -f <name>`), unless the user wants to try the app.
+Keep a list, from stage 1 on, of everything you created outside the project's git history: running servers,
+containers, downloaded images, virtualenvs, `node_modules`, sample datasets, logs, `.env` files holding secrets,
+and the working clone itself. At the end, show the user that list with sizes and **ask how they want to clean up**.
+Never delete anything without their answer. Offer choices like:
+
+| Option | What it removes | When it fits |
+|---|---|---|
+| **Keep everything running** | nothing | they want to try the app or review the PR locally |
+| **Stop only** | servers and containers (`docker rm -f <name>`) | free the ports, keep files for a later session |
+| **Full cleanup** | the above + clone, virtualenvs, `node_modules`, sample data, logs, images you pulled | the PR is all they need |
+| **Custom** | whatever they pick from the list | anything else |
+
+Before deleting, warn about anything that exists **only** locally — e.g. unpushed commits or a rewritten branch
+not yet force-pushed — and say whether it can be recreated. Only remove images and containers **you** created;
+check nothing else uses them (`docker ps -a --filter ancestor=<image>`). Confirm afterwards that the ports are
+free and list what was removed and the space recovered.
