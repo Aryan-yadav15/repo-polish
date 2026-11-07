@@ -9,6 +9,7 @@
   <a href="#-see-it-work"><b>Demo</b></a> &nbsp;·&nbsp;
   <a href="#-how-it-works"><b>Architecture</b></a> &nbsp;·&nbsp;
   <a href="#-run-it"><b>Run it</b></a> &nbsp;·&nbsp;
+  <a href="docs/"><b>Docs</b></a> &nbsp;·&nbsp;
   <a href="#-whats-next"><b>What's next</b></a>
 </p>
 
@@ -105,4 +106,4 @@ src/            what lives here
 
 - **AREA.** The honest limitation, and the fix you'd make.
 
-<sub>More detail: LINKS TO EXISTING LONG-FORM DOCS</sub>
+<sub>Full documentation: [docs/](docs/) — [architecture](docs/architecture.md) · [codebase](docs/codebase.md) · [setup](docs/setup.md)</sub>

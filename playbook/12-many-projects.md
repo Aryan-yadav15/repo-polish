@@ -1,4 +1,4 @@
-# 11 · Maintaining many projects
+# 12 · Maintaining many projects
 
 Doing all of a user's repositories in one sitting produces shallow work and blows through API quotas.
 Do **one project per session** and keep state in a queue file in the user's workspace (not in this repo).
@@ -14,7 +14,7 @@ whether the homepage URL responds, last push. Default READMEs from scaffolding t
 
 Sort into tiers and confirm the tiers with the user:
 
-- **Showcase** — full pipeline (all 10 stages).
+- **Showcase** — full pipeline (all 11 stages).
 - **Light** — short README, one screenshot or live link, secrets + hygiene only.
 - **Archive candidates** — duplicates, empty repos, experiments the owner no longer needs. Never archive or delete without explicit approval.
 - **Skip** — anything the user names as off-limits (e.g. production repos).

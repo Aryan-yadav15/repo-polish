@@ -1,4 +1,4 @@
-# 9 · Review
+# 10 · Review
 
 **Goal:** catch mistakes before the user does.
 
@@ -20,7 +20,9 @@ Cards below the fold only animate once scrolled into view; scroll before judging
 - [ ] No runtime artifacts staged (local DBs, caches the app rewrote, logs): `git status --short`
 - [ ] App starts from a fresh clone with only the README's instructions
 - [ ] Every number, model name, version and line number in the README and cards checked against the code/output
-- [ ] Every card viewed in light **and** dark; GIF frames viewed
+- [ ] Every card viewed in light **and** dark; GIF frames viewed; every docs diagram viewed
+- [ ] `docs/`: links resolve and every env var the code reads is in `setup.md` (commands in `playbook/08-docs.md`)
+- [ ] `docs/`: every path, endpoint and table mentioned exists; API examples came from the running app
 - [ ] GIF ≤ ~8 MB; total `docs/assets` reasonable (< ~2 MB of SVG)
 - [ ] All fixes listed for the PR body; all rotation-needed secrets listed for the report
 - [ ] `TODO(owner)` markers listed for the report

@@ -19,6 +19,8 @@ Capture in your notes:
 - **3–5 real design decisions** with the *why* — each must point to code (file + line). These become the decisions card.
 - **One or two lines of code** that capture the core idea, with real line numbers. This becomes the editor card.
 - **Known weaknesses** (security, scale, missing tests). These become "What's next".
+- **Questions a contributor would ask** ("what happens when…", "where does X live", "what states can Y be in").
+  Each becomes a section — and usually a diagram — in `docs/` (stage 8).
 - Counts you might quote (number of tools, rules, endpoints) — **compute them**, don't estimate.
 
 **Done when:** you could explain the project in a two-minute interview and every point maps to a file.

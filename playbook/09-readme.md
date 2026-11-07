@@ -1,4 +1,4 @@
-# 8 · README
+# 9 · README
 
 **Goal:** a README that shows the project working in the first screen, explains how it's built, gets someone
 running it in minutes, and is candid about its limits.
@@ -25,7 +25,8 @@ Start from `templates/README.template.md`. Order of sections:
 - Relative paths (`docs/assets/…`) so the README works on forks and branches.
 - No marketing filler ("enterprise-grade", "blazing fast", "revolutionary"). Specifics instead.
 - Leave `TODO(owner)` for context only the owner knows (where/why it was built). Don't guess.
-- Keep existing long-form docs; link them at the bottom rather than deleting them.
+- Link into `docs/` (stage 8) instead of repeating it: the README stays a front page, `docs/` holds the detail.
+- Keep existing long-form docs; move them into `docs/` or link them, never delete them.
 
-**Done when:** the README renders (preview it — see stage 9), every image path exists, and every command block
+**Done when:** the README renders (preview it — see stage 10), every image path exists, and every command block
 works when pasted.

@@ -44,11 +44,12 @@ the card config and the exact commands to run yourself.
 | 5 | Run it | pin drifted dependencies, replace retired APIs, fix crashes on the main path, verify output is *correct* |
 | 6 | Demo | script the app with Playwright → optimised GIF (fast-forwards AI waits, hides animation noise) |
 | 7 | Cards | animated light/dark SVG cards: hero, architecture, flow, capabilities, decisions, stack, terminal, code editor |
-| 8 | README | from a template: demo first, then how it works, copyable run commands, honest "what's next" |
-| 9 | Review | every claim checked against code, every card and GIF frame looked at |
-| 10 | Ship | pull request — never a push to your default branch |
+| 8 | Docs | a `docs/` folder for contributors: architecture, codebase map, setup + env vars, API, data, operations — flows drawn with [Archify](https://github.com/tt-a1i/archify) (asks you first) |
+| 9 | README | from a template: demo first, then how it works, copyable run commands, honest "what's next" |
+| 10 | Review | every claim checked against code, every card, diagram and GIF frame looked at |
+| 11 | Ship | pull request — never a push to your default branch; asks how you want local files cleaned up |
 
-Have many projects? [`playbook/11-many-projects.md`](playbook/11-many-projects.md) covers triage and doing one per session from a queue.
+Have many projects? [`playbook/12-many-projects.md`](playbook/12-many-projects.md) covers triage and doing one per session from a queue.
 
 ## The cards
 
@@ -117,7 +118,7 @@ W=1440 H=900 GW=760 node tools/gif/record.mjs http://localhost:3000 steps.json .
 ```
 AGENTS.md            the contract every agent reads first (CLAUDE.md points here)
 playbook/            one file per stage, with commands and "done when" checks
-templates/           README, cards config, GIF script, PR body, end-of-run report
+templates/           README, docs/ pages, cards config, GIF script, PR body, end-of-run report
 tools/scan/          secrets.sh
 tools/cards/         cards.py (+ embedded-font helper, cached icons)
 tools/gif/           record.mjs (GIF), shot.mjs (screenshots)

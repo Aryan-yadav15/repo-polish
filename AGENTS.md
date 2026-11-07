@@ -14,7 +14,7 @@ Everything you need — commands, templates, tools, checklists — is in this re
 | You can… | Mode | What you do |
 |---|---|---|
 | run shell commands, clone repos, run a browser | **Full** | Run every stage end to end. |
-| read files / fetch URLs but not execute | **Advisor** | Run stages 1, 3, 7, 8 from the source you can read. Hand the user the README, `cards.json` and the exact commands for the stages you can't run. Say clearly what you did not verify. |
+| read files / fetch URLs but not execute | **Advisor** | Run stages 1, 3, 7, 8, 9 from the source you can read. Hand the user the README, `docs/` pages (Mermaid diagrams), `cards.json` and the exact commands for the stages you can't run. Say clearly what you did not verify. |
 
 If you are unsure, assume **Advisor** and say so.
 
@@ -39,11 +39,12 @@ Do not ask about anything you can decide from the code or from this playbook.
 | 5 | Run it | `playbook/05-run.md` | the project starts and works |
 | 6 | Demo | `playbook/06-demo.md` | `docs/demo.gif` from a real run |
 | 7 | Cards | `playbook/07-cards.md` | `docs/assets/*.svg` light + dark |
-| 8 | README | `playbook/08-readme.md` | new `README.md` |
-| 9 | Review | `playbook/09-review.md` | everything verified |
-| 10 | Ship | `playbook/10-ship.md` | pull request, report, cleanup the user chose |
+| 8 | Docs | `playbook/08-docs.md` | `docs/` folder documenting the codebase (asks the user first) |
+| 9 | README | `playbook/09-readme.md` | new `README.md` |
+| 10 | Review | `playbook/10-review.md` | everything verified |
+| 11 | Ship | `playbook/11-ship.md` | pull request, report, cleanup the user chose |
 
-Maintaining several projects? See `playbook/11-many-projects.md` (one project per session, a queue file).
+Maintaining several projects? See `playbook/12-many-projects.md` (one project per session, a queue file).
 
 ## 3 · Rules that override everything else
 
@@ -57,7 +58,7 @@ Maintaining several projects? See `playbook/11-many-projects.md` (one project pe
 5. **Ask before anything outward-facing or destructive**: pushing, opening PRs, archiving, deleting, rewriting history,
    deploying, spending money. Approval for one repo doesn't carry to the next. This includes **cleanup**: at the end,
    list what you created locally (servers, containers, clones, envs, data) and let the user choose what to remove
-   (`playbook/10-ship.md`).
+   (`playbook/11-ship.md`).
 6. **Look at what you make.** Screenshot every card and sample GIF frames; fix overlaps, overflow and unreadable text
    before shipping. Don't report "done" on visuals you haven't seen.
 7. **No AI attribution.** Commits, PR descriptions, READMEs and code must not credit the agent:
@@ -73,6 +74,7 @@ Maintaining several projects? See `playbook/11-many-projects.md` (one project pe
 | `tools/cards/cards.py <cards.json> <out>` | Animated light/dark SVG cards for the README. Run with `uv run --with fonttools --with brotli python …`. |
 | `tools/gif/record.mjs <url> <steps.json> <out.gif>` | Drives the app with Playwright, outputs an optimised GIF. |
 | `tools/gif/shot.mjs <svg-or-url> <out.png> [ms]` | Screenshot a card (after its animation) or a page, so you can check it. |
+| [Archify](https://github.com/tt-a1i/archify) (external, optional) | Flow, sequence, data-flow, lifecycle and ERD diagrams for `docs/`. Install only with the user's OK — see `playbook/08-docs.md`. |
 
 Setup once: `npm install` (Playwright) and `npx playwright install chromium` in this repo; Python cards need
 [`uv`](https://docs.astral.sh/uv/) or `pip install fonttools brotli`. `ffmpeg` must be on PATH for GIFs.
@@ -80,6 +82,7 @@ Setup once: `npm install` (Playwright) and `npx playwright install chromium` in 
 ## 5 · Templates
 
 - `templates/README.template.md` — README structure and section rules.
+- `templates/docs/` — skeletons for every `docs/` page (architecture, codebase, setup, api, data, operations, ADRs).
 - `templates/cards.example.json` — every card section, documented.
 - `templates/steps.example.json` — a GIF script.
 - `templates/PR_BODY.md` — pull request description.
