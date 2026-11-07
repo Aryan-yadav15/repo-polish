@@ -1,0 +1,11 @@
+[
+  { "wait": 1500 },
+  { "click": "textarea, input[type=text]", "wait": 300 },
+  { "fill": ["textarea, input[type=text]", "Show me the top 5 customers by total spend"], "wait": 400 },
+  { "press": "Enter", "wait": 500 },
+  { "waitFor": "text=EXPECTED VALUE FROM A CORRECT ANSWER", "timeout": 90000, "speed": 4, "wait": 4000 },
+  { "pause": 65000, "speed": 40, "wait": 300 },
+  { "fill": ["textarea, input[type=text]", "A second, more visual request"], "wait": 400 },
+  { "press": "Enter", "wait": 500 },
+  { "waitFor": "canvas", "timeout": 90000, "speed": 4, "wait": 5000 }
+]

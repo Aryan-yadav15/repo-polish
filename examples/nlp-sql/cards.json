@@ -1,0 +1,430 @@
+{
+  "title": "NLP → SQL",
+  "accent": {
+    "light": "#0071e3",
+    "dark": "#2997ff"
+  },
+  "hero": {
+    "masthead": [
+      "PROJECT Nº 04",
+      "FROM THE WORK OF ARYAN YADAV",
+      "DATA · 2025"
+    ],
+    "tagline": [
+      "Ask in English.",
+      "Get real SQL."
+    ],
+    "blurb": "A streaming LangChain agent that reads any PostgreSQL schema, writes the query, runs it and explains the result.",
+    "demo": {
+      "question": "Top 3 customers by total spend",
+      "code": [
+        "SELECT c.first_name, SUM(i.total) AS spend",
+        "FROM customer c JOIN invoice i",
+        "  USING (customer_id) GROUP BY 1",
+        "ORDER BY spend DESC LIMIT 3;"
+      ],
+      "keywords": [
+        "AS",
+        "BY",
+        "DESC",
+        "FROM",
+        "GROUP",
+        "JOIN",
+        "LIMIT",
+        "ORDER",
+        "SELECT",
+        "SUM(i.total)",
+        "USING"
+      ],
+      "rows": [
+        [
+          "Helena",
+          49.62
+        ],
+        [
+          "Richard",
+          47.62
+        ],
+        [
+          "Luis",
+          46.62
+        ]
+      ]
+    },
+    "facts": [
+      "4 agent tools",
+      "Live SSE streaming",
+      "Any Postgres DB",
+      "~570 DQ rules"
+    ]
+  },
+  "arch": {
+    "alt": "Architecture: Next.js UI and proxy route, FastAPI streaming endpoint, LangChain ReAct agent with four tools, Gemini, PostgreSQL and ChromaDB",
+    "kicker": "ARCHITECTURE",
+    "title": "How the pieces fit.",
+    "cols": [
+      "CLIENT · NEXT.JS 14",
+      "SERVER · FASTAPI",
+      "DATA & MODELS"
+    ],
+    "client": [
+      [
+        "Chat UI",
+        "chat · config · schema graph"
+      ],
+      [
+        "Route handler",
+        "/api/v1/query → proxy"
+      ]
+    ],
+    "server": [
+      "POST /api/v1/query/stream",
+      "async generator → Server-Sent Events"
+    ],
+    "agent": [
+      "LangChain ReAct agent",
+      "picks one tool, then stops"
+    ],
+    "tools": [
+      [
+        "answer_from_history",
+        "small talk"
+      ],
+      [
+        "get_database_answer",
+        "NL → SQL → table"
+      ],
+      [
+        "get_data_quality_info",
+        "rule search"
+      ],
+      [
+        "visualize_database_schema",
+        "FK graph"
+      ]
+    ],
+    "data": [
+      [
+        "Google Gemini",
+        "routing · SQL · summaries"
+      ],
+      [
+        "PostgreSQL",
+        "any DB · schema read live"
+      ],
+      [
+        "ChromaDB",
+        "DQ rules · MiniLM vectors"
+      ]
+    ],
+    "links": [
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "footnote": "Every tool pushes progress events onto an asyncio.Queue; the HTTP response drains it, so the UI sees each step as it happens."
+  },
+  "flow": {
+    "alt": "Five steps: route, read schema, write SQL, execute, explain",
+    "kicker": "ONE QUESTION, END TO END",
+    "title": "From a sentence to a table.",
+    "steps": [
+      [
+        "Route",
+        "The agent picks one of four tools"
+      ],
+      [
+        "Read schema",
+        "Tables, columns and foreign keys from the live DB"
+      ],
+      [
+        "Write SQL",
+        "Gemini drafts PostgreSQL, retrying up to 3×"
+      ],
+      [
+        "Execute",
+        "Runs on your connection, rows land in a DataFrame"
+      ],
+      [
+        "Explain",
+        "Summary, table and SQL stream back to the UI"
+      ]
+    ]
+  },
+  "capabilities": {
+    "alt": "Four things you can ask: data questions, schema graphs, data-quality rules, and follow-ups",
+    "kicker": "WHAT YOU CAN ASK",
+    "title": "Four tools, one chat box.",
+    "items": [
+      {
+        "kicker": "DATA",
+        "title": "Ask about your data",
+        "ask": "Top 5 customers by total invoice amount",
+        "does": "Writes PostgreSQL for your schema, runs it, and returns a summary, the table and the SQL itself.",
+        "tool": "get_database_answer"
+      },
+      {
+        "kicker": "SCHEMA",
+        "title": "See how tables connect",
+        "ask": "Show me how the tables are related",
+        "does": "Reads foreign keys and draws an interactive graph of the most connected tables.",
+        "tool": "visualize_database_schema"
+      },
+      {
+        "kicker": "DATA QUALITY",
+        "title": "Find the right checks",
+        "ask": "What checks apply to customer master data?",
+        "does": "Semantic search over a ~570-rule SAP rulebook, plus a validation query for each match.",
+        "tool": "get_data_quality_info"
+      },
+      {
+        "kicker": "CONVERSATION",
+        "title": "Keep the context",
+        "ask": "What did I just ask you?",
+        "does": "Answers follow-ups and small talk from the chat history, without touching the database.",
+        "tool": "answer_from_history"
+      }
+    ]
+  },
+  "decisions": {
+    "alt": "Five design decisions: SSE over WebSockets, one tool per request, runtime schema, pluggable LLM layer, per-request token accounting",
+    "kicker": "DECISIONS WORTH TALKING ABOUT",
+    "title": "Why it's built this way.",
+    "items": [
+      [
+        "Server-Sent Events, not WebSockets",
+        "Data only flows server → client during a request. SSE is plain HTTP, so it streams cleanly through the Next.js route handler."
+      ],
+      [
+        "One tool per request",
+        "The AgentExecutor runs with max_iterations=1: the agent picks a tool, the tool streams its result, and the loop ends. No runaway reasoning, predictable latency and cost."
+      ],
+      [
+        "Schema read at runtime, not hardcoded",
+        "The backend introspects whatever database you connect, so it isn't tied to one demo database. A schema can also be sent with the request to skip introspection."
+      ],
+      [
+        "Pluggable LLM layer",
+        "BaseLLMService plus a factory picks the provider from the model-name prefix. An API key sent with a request overrides the server's key for that request only."
+      ],
+      [
+        "Token accounting per request",
+        "A request-scoped tracker adds up usage across every LLM call (routing, SQL, summary) and reports one total to the UI."
+      ]
+    ]
+  },
+  "stack": {
+    "alt": "Built with: Next.js, React, Tailwind; FastAPI, LangChain, Python; Gemini, sentence-transformers; PostgreSQL, SQLAlchemy, ChromaDB",
+    "kicker": "BUILT WITH",
+    "title": "The stack.",
+    "cols": [
+      [
+        "FRONTEND",
+        [
+          [
+            "Next.js 14",
+            "nextdotjs"
+          ],
+          [
+            "React 18",
+            "react"
+          ],
+          [
+            "Tailwind CSS",
+            "tailwindcss"
+          ],
+          [
+            "vis-network",
+            null
+          ]
+        ]
+      ],
+      [
+        "BACKEND",
+        [
+          [
+            "FastAPI",
+            "fastapi"
+          ],
+          [
+            "LangChain",
+            "langchain"
+          ],
+          [
+            "Python",
+            "python"
+          ],
+          [
+            "Pydantic",
+            null
+          ]
+        ]
+      ],
+      [
+        "MODELS",
+        [
+          [
+            "Google Gemini",
+            "googlegemini"
+          ],
+          [
+            "MiniLM embeddings",
+            "huggingface"
+          ]
+        ]
+      ],
+      [
+        "DATA",
+        [
+          [
+            "PostgreSQL",
+            "postgresql"
+          ],
+          [
+            "SQLAlchemy",
+            "sqlalchemy"
+          ],
+          [
+            "ChromaDB",
+            null
+          ],
+          [
+            "pandas",
+            null
+          ]
+        ]
+      ]
+    ]
+  },
+  "terminal": {
+    "alt": "Terminal: install and start the FastAPI backend on port 8000 and the Next.js frontend on port 3000",
+    "kicker": "RUN IT",
+    "title": "Two terminals, two minutes.",
+    "window": "zsh — Database-NLP-Query",
+    "prompt": "❯",
+    "lines": [
+      [
+        "com",
+        "# 1 · backend"
+      ],
+      [
+        "cmd",
+        "cd brain_llm && pip install -r requirements.txt"
+      ],
+      [
+        "cmd",
+        "cp .env.example .env        # Gemini key + DB details"
+      ],
+      [
+        "cmd",
+        "uvicorn app.main:app --port 8000"
+      ],
+      [
+        "out",
+        "INFO:     Application startup complete."
+      ],
+      [
+        "ok",
+        "INFO:     Uvicorn running on http://127.0.0.1:8000"
+      ],
+      [
+        "gap",
+        ""
+      ],
+      [
+        "com",
+        "# 2 · frontend (new tab)"
+      ],
+      [
+        "cmd",
+        "cd chatUI && npm install && npm run dev"
+      ],
+      [
+        "out",
+        "  ▲ Next.js 14.2.30"
+      ],
+      [
+        "out",
+        "  - Local:        http://localhost:3000"
+      ],
+      [
+        "ok",
+        " ✓ Ready"
+      ]
+    ]
+  },
+  "editor": {
+    "alt": "Code from langchain_service.py: format_sse builds each Server-Sent Event, and the AgentExecutor is capped at one iteration",
+    "kicker": "IN THE CODE",
+    "title": "The two lines that shape the UX.",
+    "window": "brain_llm/app/services",
+    "file": "langchain_service.py",
+    "notes": {
+      "103": "← every UI update is one of these",
+      "908": "← one tool, then stop"
+    },
+    "lines": [
+      [
+        71,
+        "def format_sse(event_name: str, data: Dict[str, Any]) -> str:"
+      ],
+      [
+        "fold",
+        "    \"\"\" … docstring … \"\"\""
+      ],
+      [
+        102,
+        "    json_data = json.dumps(data, default=str)"
+      ],
+      [
+        103,
+        "    return f\"event: {event_name}\\ndata: {json_data}\\n\\n\""
+      ],
+      [
+        "fold",
+        "    ⋯"
+      ],
+      [
+        903,
+        "        agent_executor = AgentExecutor("
+      ],
+      [
+        904,
+        "            agent=agent,"
+      ],
+      [
+        905,
+        "            tools=tools,"
+      ],
+      [
+        906,
+        "            verbose=True,                           # Enable detailed logging"
+      ],
+      [
+        907,
+        "            handle_parsing_errors=True,             # Graceful error handling"
+      ],
+      [
+        908,
+        "            max_iterations=1,                       # Single-shot execution"
+      ],
+      [
+        909,
+        "            output_parser=StopAfterToolOutputParser()  # Custom parser"
+      ],
+      [
+        910,
+        "        )"
+      ]
+    ]
+  }
+}

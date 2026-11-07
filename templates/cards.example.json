@@ -1,0 +1,136 @@
+{
+  "_doc": "Config for tools/cards/cards.py. Keys starting with _doc are ignored. Every section except hero is optional: omit it and that card is not drawn. Keep text short; screenshot every card to check fit.",
+
+  "title": "Project Name",
+  "_doc_title": "Big display title on the hero. ~12 characters fits best; it auto-scales.",
+  "accent": { "light": "#0071e3", "dark": "#2997ff" },
+  "_doc_accent": "Darker shade for light mode, brighter shade for dark mode.",
+
+  "hero": {
+    "masthead": ["PROJECT Nº 01", "BY YOUR NAME", "CATEGORY · 2025"],
+    "_doc_masthead": "Three small caps labels across the top: left, centre, right.",
+    "tagline": ["Short promise.", "The payoff."],
+    "_doc_tagline": "Two parts; the second is emphasised.",
+    "blurb": "One sentence on what the project does and how, under ~110 characters.",
+    "demo": {
+      "_doc_demo": "The animated card on the right: a question types in, code appears line by line, then result bars grow. Use REAL output from running the project.",
+      "labels": ["YOU ASK", "IT WRITES", "YOU GET"],
+      "_doc_labels": "Optional. E.g. [\"YOU RUN\", \"IT DOES\", \"RESULT\"] for a CLI.",
+      "question": "What the user asks or does",
+      "code": [
+        "SELECT name, COUNT(*) AS total",
+        "FROM orders GROUP BY name",
+        "ORDER BY total DESC LIMIT 3;"
+      ],
+      "keywords": ["SELECT", "AS", "FROM", "GROUP", "BY", "ORDER", "DESC", "LIMIT"],
+      "_doc_keywords": "Tokens in code to colour with the accent.",
+      "rows": [["Alpha", 42], ["Beta", 37], ["Gamma", 21]],
+      "_doc_rows": "Up to 3 [label, number] pairs; bars scale to the largest."
+    },
+    "facts": ["4 key features", "Real-time updates", "Any database", "Open source"],
+    "_doc_facts": "3–5 short facts for the strip at the bottom."
+  },
+
+  "arch": {
+    "alt": "Accessible description of the whole diagram.",
+    "kicker": "ARCHITECTURE",
+    "title": "How the pieces fit.",
+    "cols": ["CLIENT · FRAMEWORK", "SERVER · FRAMEWORK", "DATA & SERVICES"],
+    "client": [["Web UI", "what it shows"], ["API route", "what it does"]],
+    "server": ["POST /api/endpoint", "how it responds"],
+    "agent": ["Core component", "one-line role"],
+    "_doc_agent": "The dark central panel. Holds up to 4 'tools' rows.",
+    "tools": [
+      ["module_or_tool_one", "short role"],
+      ["module_or_tool_two", "short role"],
+      ["module_or_tool_three", "short role"],
+      ["module_or_tool_four", "short role"]
+    ],
+    "data": [["External API", "what for"], ["Database", "what for"], ["Cache / index", "what for"]],
+    "_doc_data": "Exactly 3 boxes on the right.",
+    "links": [[1, 1], [2, 2], [3, 1]],
+    "_doc_links": "[tool index, data index] wires from tools to data boxes (0-based).",
+    "footnote": "One sentence on the most important runtime behaviour."
+  },
+
+  "flow": {
+    "alt": "Accessible description of the steps.",
+    "kicker": "ONE REQUEST, END TO END",
+    "title": "From input to output.",
+    "steps": [
+      ["Receive", "What happens first"],
+      ["Process", "The core transformation"],
+      ["Store", "Where results go"],
+      ["Respond", "What the user sees"]
+    ],
+    "_doc_steps": "4–6 [title, caption]; captions wrap at ~24 chars, keep to 2–3 lines."
+  },
+
+  "capabilities": {
+    "alt": "Accessible description.",
+    "kicker": "WHAT YOU CAN DO",
+    "title": "Four things it does well.",
+    "items": [
+      { "kicker": "FEATURE", "title": "First capability", "ask": "An example request", "does": "What happens, in under ~120 characters.", "tool": "function_name" },
+      { "kicker": "FEATURE", "title": "Second capability", "ask": "An example request", "does": "What happens, in under ~120 characters.", "tool": "function_name" },
+      { "kicker": "FEATURE", "title": "Third capability", "ask": "An example request", "does": "What happens, in under ~120 characters.", "tool": "function_name" },
+      { "kicker": "FEATURE", "title": "Fourth capability", "ask": "An example request", "does": "What happens, in under ~120 characters.", "tool": "function_name" }
+    ],
+    "_doc_items": "Exactly 4 tiles (2×2). 'tool' is shown in a mono chip — a function, endpoint or command."
+  },
+
+  "decisions": {
+    "alt": "Accessible description.",
+    "kicker": "DECISIONS WORTH TALKING ABOUT",
+    "title": "Why it's built this way.",
+    "items": [
+      ["Decision one", "Why, pointing at something real in the code. Up to ~230 characters (two lines)."],
+      ["Decision two", "Why."],
+      ["Decision three", "Why."]
+    ]
+  },
+
+  "stack": {
+    "alt": "Accessible description.",
+    "kicker": "BUILT WITH",
+    "title": "The stack.",
+    "cols": [
+      ["FRONTEND", [["React", "react"], ["Tailwind CSS", "tailwindcss"]]],
+      ["BACKEND", [["Node.js", "nodedotjs"], ["Express", "express"]]],
+      ["DATA", [["PostgreSQL", "postgresql"], ["Redis", "redis"]]]
+    ],
+    "_doc_cols": "Columns of [name, simple-icons slug or null]. Find slugs at https://simpleicons.org. null draws a dot."
+  },
+
+  "terminal": {
+    "alt": "Accessible description.",
+    "kicker": "RUN IT",
+    "title": "Up and running.",
+    "window": "zsh — project",
+    "prompt": "❯",
+    "lines": [
+      ["com", "# install"],
+      ["cmd", "npm install"],
+      ["cmd", "npm run dev"],
+      ["out", "  > project@1.0.0 dev"],
+      ["ok", "  ✓ Ready on http://localhost:3000"]
+    ],
+    "_doc_lines": "Kinds: cmd (typed after the prompt), com (comment, green), out (dim output), ok (green output), gap (blank). Output must match what really prints. Repeat the commands in a fenced code block in the README so they can be copied."
+  },
+
+  "editor": {
+    "alt": "Accessible description of the code shown.",
+    "kicker": "IN THE CODE",
+    "title": "The idea in a few lines.",
+    "window": "src/folder",
+    "file": "file_name.py",
+    "notes": { "12": "← what this line achieves" },
+    "_doc_notes": "Line number → note; that line gets highlighted.",
+    "lines": [
+      [10, "def handler(request):"],
+      ["fold", "    ⋯"],
+      [12, "    return process(request)"]
+    ],
+    "_doc_lines": "[real line number, verbatim code] or [\"fold\", text] for skipped lines. Python-style highlighting."
+  }
+}

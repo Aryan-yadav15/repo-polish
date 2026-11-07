@@ -1,0 +1,20 @@
+{
+  "name": "repo-polish",
+  "version": "1.0.0",
+  "description": "Agent playbook and tools for maintaining a project: secrets, runnability, demo GIF, designed README",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "playwright": "^1.65.0"
+  }
+}

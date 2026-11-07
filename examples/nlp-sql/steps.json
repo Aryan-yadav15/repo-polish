@@ -1,0 +1,63 @@
+[
+ {
+  "fill": [
+   "input[placeholder='gemini-2.5-flash']",
+   "gemini-3.5-flash"
+  ],
+  "wait": 200
+ },
+ {
+  "click": "button:has-text('Save')",
+  "wait": 800
+ },
+ {
+  "wait": 1500
+ },
+ {
+  "click": "input[placeholder='Generate SQL queries...']",
+  "wait": 300
+ },
+ {
+  "fill": [
+   "input[placeholder='Generate SQL queries...']",
+   "Top 5 customers by total spend"
+  ],
+  "wait": 400
+ },
+ {
+  "press": "Enter",
+  "wait": 500
+ },
+ {
+  "waitFor": "text=Helena",
+  "timeout": 90000,
+  "speed": 4,
+  "wait": 4000
+ },
+ {
+  "scroll": 400,
+  "wait": 2000
+ },
+ {
+  "pause": 65000,
+  "speed": 40,
+  "wait": 300
+ },
+ {
+  "fill": [
+   "input[placeholder='Generate SQL queries...']",
+   "Show me how the tables are related"
+  ],
+  "wait": 400
+ },
+ {
+  "press": "Enter",
+  "wait": 500
+ },
+ {
+  "waitFor": "canvas",
+  "timeout": 90000,
+  "speed": 4,
+  "wait": 5000
+ }
+]
