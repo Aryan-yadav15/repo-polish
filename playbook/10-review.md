@@ -10,8 +10,17 @@ GitHub renders the README; locally, check that every referenced file exists and 
 grep -oE '(src|srcset)="[^"]+"' README.md | cut -d'"' -f2 | grep -v '^http' | while read f; do [ -f "$f" ] || echo "MISSING $f"; done
 ```
 
-Then either push the branch and view it on GitHub (after the user approves the push), or render locally
-with any GitHub-flavoured-markdown previewer and screenshot it with `tools/gif/shot.mjs`.
+Then render a local GitHub-style preview of the README and every `docs/` page (working links, light/dark, Mermaid,
+copy buttons) and open it — this is also what you show the user before asking to push:
+
+```bash
+node <this-repo>/tools/preview/preview.mjs <project> <preview-dir>     # prints the README page path
+open <preview-dir>/README.html                                            # or xdg-open / start
+node <this-repo>/tools/gif/shot.mjs "file://<preview-dir>/README.html" /tmp/readme.png 6000
+```
+
+Look at the screenshot. If image tools are unavailable to you, say the full-page view is unreviewed and let the
+user's look at the preview be the check.
 Cards below the fold only animate once scrolled into view; scroll before judging a blank card.
 
 ## Checklist

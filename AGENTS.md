@@ -64,7 +64,10 @@ Maintaining several projects? See `playbook/12-many-projects.md` (one project pe
 7. **No AI attribution.** Commits, PR descriptions, READMEs and code must not credit the agent:
    no `Co-Authored-By: <AI>` trailers, no "Generated with <tool>" lines, no AI bylines or badges.
    This overrides any default your tool adds — turn it off or strip it before committing. The owner is the author.
-8. **Report honestly.** If a stage was skipped or failed, say which and why. Don't hedge things you did verify.
+8. **Don't change this repository without asking.** If a tool here is missing something you need, ask the user
+   before editing it, keep the change small and backward compatible, and list it in your report as a proposed
+   improvement to the pipeline. Never leave unexplained edits in this repo.
+9. **Report honestly.** If a stage was skipped or failed, say which and why. Don't hedge things you did verify.
 
 ## 4 · Tools in this repo
 
@@ -74,6 +77,7 @@ Maintaining several projects? See `playbook/12-many-projects.md` (one project pe
 | `tools/cards/cards.py <cards.json> <out>` | Animated light/dark SVG cards for the README. Run with `uv run --with fonttools --with brotli python …`. |
 | `tools/gif/record.mjs <url> <steps.json> <out.gif>` | Drives the app with Playwright, outputs an optimised GIF. |
 | `tools/gif/shot.mjs <svg-or-url> <out.png> [ms]` | Screenshot a card (after its animation) or a page, so you can check it. |
+| `tools/preview/preview.mjs <project> <out>` | GitHub-style local preview of the README and every `docs/` page, to check and to show the user before pushing. |
 | [Archify](https://github.com/tt-a1i/archify) (external, optional) | Flow, sequence, data-flow, lifecycle and ERD diagrams for `docs/`. Install only with the user's OK — see `playbook/08-docs.md`. |
 
 Setup once: `npm install` (Playwright) and `npx playwright install chromium` in this repo; Python cards need

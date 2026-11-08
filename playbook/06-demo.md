@@ -36,6 +36,22 @@ node tools/gif/record.mjs http://localhost:3000 steps.json <project>/docs/demo.g
 - `CSS` hides decoration that animates every frame (particles, shimmer). This is the single biggest size win.
 - Size budget: ~8 MB. If over, lower `FPS` (8), `COLORS` (96) or `GW` (720) — in that order.
 
+## Not a web app?
+
+`record.mjs` drives a URL. For other kinds of project, capture frames another way and reuse its encoding
+(the two-pass `palettegen` / `paletteuse` ffmpeg step at the bottom of `record.mjs`):
+
+| Project | Capture |
+|---|---|
+| **Electron / desktop (incl. VS Code extensions)** | Launch the app with a remote-debugging port (`--remote-debugging-port=9333`), connect with Playwright's `chromium.connectOverCDP`, drive it with keyboard input, and take timestamped screenshots in a loop. For VS Code, download a test build with `@vscode/test-electron` into a git-ignored folder and use a short `--user-data-dir` path (long socket paths fail on macOS). |
+| **CLI / TUI** | Record the terminal with [VHS](https://github.com/charmbracelet/vhs) (scripted `.tape` → GIF) or asciinema + agg. Use a real run, not typed fake output. |
+| **Mobile** | Emulator/simulator screen recording (`adb shell screenrecord`, `xcrun simctl io booted recordVideo`), then the same ffmpeg encode. |
+| **Library / API only** | Skip the GIF; use the terminal card plus a real code example and its real output. Say so in the README. |
+
+Turn frames into video with `ffmpeg -framerate <fps> -pattern_type glob -i 'frames/*.png' …`; drop or speed up
+waiting stretches the same way `speed` does. If the window is mostly empty, crop to the interesting regions —
+you can stack two crops vertically (`vstack`) to keep the status bar and the result in one frame.
+
 ## Check it
 
 Extract frames and look at them:

@@ -181,7 +181,7 @@ def architecture(p, mode, out):
     for k, (ti, di) in enumerate(A["links"]):
         s.append(wire(t, f"wl{k}{mode}", f"M810 {tool_y[ti]} C 850 {tool_y[ti]}, 840 {data_y[di] + 42}, 880 {data_y[di] + 42}", 1.7 + k * .1))
     s.append(wire(t, f"sse{mode}", "M350 180 C 330 180, 320 190, 300 190", 1.9, dashed=True))
-    s.append(f'<g opacity="0">{rise(2.0, 4)}<text x="325" y="172" text-anchor="middle" font-family="{SF}" font-size="11" font-weight="700" letter-spacing="1.4" fill="{t["accent"]}">SSE</text></g>')
+    s.append(f'<g opacity="0">{rise(2.0, 4)}<text x="325" y="172" text-anchor="middle" font-family="{SF}" font-size="11" font-weight="700" letter-spacing="1.4" fill="{t["accent"]}">{escape(A.get("link", "SSE"))}</text></g>')
     s.append(f'<g opacity="0">{rise(2.1, 4)}<text x="40" y="{H - 30}" font-family="{SF}" font-size="14" fill="{t["sub"]}">{escape(A["footnote"])}</text></g>')
     s.append("</svg>")
     (out / f"architecture-{mode}.svg").write_text("\n".join(s))

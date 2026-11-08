@@ -100,6 +100,11 @@ uv run --with fonttools --with brotli python tools/cards/cards.py ../my-project/
 ```
 
 ```bash
+# preview README + docs/ the way GitHub will show them
+node tools/preview/preview.mjs ../my-project /tmp/preview && open /tmp/preview/README.html
+```
+
+```bash
 # demo GIF from a scripted run (see templates/steps.example.json)
 W=1440 H=900 GW=760 node tools/gif/record.mjs http://localhost:3000 steps.json ../my-project/docs/demo.gif
 ```
@@ -122,6 +127,7 @@ templates/           README, docs/ pages, cards config, GIF script, PR body, end
 tools/scan/          secrets.sh
 tools/cards/         cards.py (+ embedded-font helper, cached icons)
 tools/gif/           record.mjs (GIF), shot.mjs (screenshots)
+tools/preview/       preview.mjs (local GitHub-style preview of README + docs/)
 examples/nlp-sql/    a complete real run: config, script, cards, GIF
 ```
 

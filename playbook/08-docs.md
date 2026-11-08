@@ -23,7 +23,7 @@ Use the skeletons in `templates/docs/`. Write only the pages the project needs �
 | `docs/README.md` | index: what each page covers, suggested reading order | always (if writing docs) |
 | `architecture.md` | components, how they communicate, main flows, key decisions (long form of the cards) | always |
 | `codebase.md` | folder-by-folder map: what each module does, entry points, "where to start for X" | always |
-| `setup.md` | full local setup; **env var table** (name · required · example · purpose · where it's read) | always |
+| `setup.md` | full local setup; **configuration table** — env vars, or whatever the project uses instead (VS Code settings, CLI flags, config files): name · required/default · example · purpose · where it's read | always |
 | `api.md` | endpoints / CLI commands / public functions, with real request + response examples | there is an API or CLI |
 | `data.md` | schema, models, relationships, migrations, sample data | there is a database or persistent store |
 | `operations.md` | deploy, per-environment config, logs, common failures and fixes | it is (or was) deployed |
@@ -42,6 +42,10 @@ Ask: install globally or for this project only, and for which agent. Then follow
 `node <installed-path>/bin/archify.mjs doctor`. If the user declines, or you're in Advisor mode, use the
 Mermaid fallback below.
 
+**Already installed?** Check before installing (it may already be in the agent's skill list, globally or in
+another project). If it is, tell the user where and which version, and ask whether to use it or install the scope
+they picked. If Archify reports an update, relay it; don't update without being asked.
+
 **Generate.** Ask Archify for the diagram the way its skill expects — describe what the reader needs to understand,
 and for code-backed diagrams point it at the repository so nodes carry source evidence. Its `finalize` command
 validates the result; a non-zero exit is never success. Keep each diagram's source and HTML in the project:
@@ -52,6 +56,19 @@ docs/diagrams/<name>.html        interactive standalone diagram
 docs/diagrams/<name>-light.png   static image for Markdown
 docs/diagrams/<name>-dark.png
 ```
+
+**Practical notes** (from real runs):
+
+- **Keep receipts out of the repo.** `finalize` writes receipt JSON next to the output; pass `--out-dir <scratch>` where
+  supported, and before committing keep only `<name>.json`, `<name>.html` and the PNGs in `docs/diagrams/`.
+- **Browser gate needs Chrome.** If `browser-check` reports `viewer/chrome-unavailable`, point it at Playwright's
+  Chromium: `export ARCHIFY_CHROME="$(node -e "console.log(require('playwright').chromium.executablePath())")"`
+  (run from this repo after `npm install`).
+- **Readability gates are strict.** Keep participant labels short (a word or two, ~12 characters) and put detail in the
+  sublabel; keep the canvas width ≤ ~1080 so text isn't scaled below the minimum; merge minor return messages rather
+  than stacking many. Read the diagnostic, fix that one thing, rerun — a non-zero exit is never success.
+- **Types depend on version.** If the installed Archify lacks a type you need (e.g. ERD in older versions), use Mermaid
+  for that diagram and say so.
 
 **Embed.** GitHub does not render HTML inside Markdown, so embed the PNGs and link the interactive file:
 
@@ -93,7 +110,8 @@ for schemas. Keep each under ~15 nodes; split rather than cram.
 grep -rhoE '\]\(([^)#]+)|src="[^"]+"|srcset="[^"]+"' docs | sed -E 's/^\]\(|^src="|^srcset="|"$//g' | grep -v '^http' | sort -u \
   | while read p; do [ -e "docs/$p" ] || [ -e "$p" ] || echo "BROKEN $p"; done
 
-# every env var the code reads appears in setup.md (adjust the pattern to the language)
+# every env var the code reads appears in setup.md (adjust the pattern to the language; for settings-based
+# projects such as VS Code extensions, compare contributes.configuration keys in package.json instead)
 grep -rhoE 'process\.env\.[A-Z0-9_]+|os\.environ(\.get\(|\[)["'"'"'][A-Z0-9_]+|getenv\(["'"'"'][A-Z0-9_]+' --include='*.js' --include='*.ts' --include='*.py' --exclude-dir=node_modules --exclude-dir=.venv . \
   | grep -oE '[A-Z][A-Z0-9_]+$' | sort -u | while read v; do grep -q "$v" docs/setup.md || echo "UNDOCUMENTED $v"; done
 ```

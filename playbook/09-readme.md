@@ -23,6 +23,8 @@ Start from `templates/README.template.md`. Order of sections:
 - Use `<picture><source media="(prefers-color-scheme: dark)" srcset="…-dark.svg"/><img src="…-light.svg" …/></picture>`
   for every card, with a real `alt` describing the content.
 - Relative paths (`docs/assets/…`) so the README works on forks and branches.
+- **Anchors:** GitHub drops symbols but keeps the space they leave, so `## ▸ See it work` becomes `#-see-it-work`
+  (leading dash). Links to README sections from `docs/` must use that form: `../README.md#-whats-next`.
 - No marketing filler ("enterprise-grade", "blazing fast", "revolutionary"). Specifics instead.
 - Leave `TODO(owner)` for context only the owner knows (where/why it was built). Don't guess.
 - Link into `docs/` (stage 8) instead of repeating it: the README stays a front page, `docs/` holds the detail.

@@ -50,7 +50,9 @@
     "_doc_data": "Exactly 3 boxes on the right.",
     "links": [[1, 1], [2, 2], [3, 1]],
     "_doc_links": "[tool index, data index] wires from tools to data boxes (0-based).",
-    "footnote": "One sentence on the most important runtime behaviour."
+    "footnote": "One sentence on the most important runtime behaviour.",
+    "link": "SSE",
+    "_doc_link": "Optional. Label on the dashed client → server wire (default SSE), e.g. HTTP, WS, API."
   },
 
   "flow": {

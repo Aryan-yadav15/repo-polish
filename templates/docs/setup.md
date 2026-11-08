@@ -12,13 +12,15 @@
 # exact commands, one block per process
 ```
 
-## Environment variables
+## Configuration
 
-| Name | Required | Example | Purpose | Read in |
+<!-- Env vars, or the project's own mechanism (VS Code settings, CLI flags, config file). Say which. -->
+
+| Name | Required / default | Example | Purpose | Read in |
 |---|---|---|---|---|
 | `NAME` | yes | `placeholder` | WHAT IT CONTROLS | [`path/config.py:LINE`](../path/config.py#LLINE) |
 
-<!-- Every variable the code reads must be listed; values are placeholders, never real secrets. -->
+<!-- Every setting the code reads must be listed, and say if any are declared but unused; values are placeholders, never real secrets. -->
 
 ## Troubleshooting
 

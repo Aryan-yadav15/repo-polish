@@ -24,6 +24,12 @@ A README with a demo is only honest if the project runs. Expect breakage: depend
 
 Ask the user before running containers or anything that installs system-wide.
 
+## Audit dependencies (report, don't fix)
+
+Run the ecosystem's audit (`npm audit --omit=dev`, `pip-audit`, `cargo audit`, …) and record the counts by severity for
+the report and the README's "What's next". Don't mass-upgrade to clear warnings — that's a separate, riskier change.
+Fix one only if it's a direct dependency on the main path and the patch release is compatible.
+
 ## Prove it works
 
 Exercise the main feature for real (UI or API) and check the output is **correct**, not just non-empty.
