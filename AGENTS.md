@@ -77,6 +77,7 @@ Maintaining several projects? See `playbook/12-many-projects.md` (one project pe
 | `tools/cards/cards.py <cards.json> <out>` | Animated light/dark SVG cards for the README. Run with `uv run --with fonttools --with brotli python …`. |
 | `tools/gif/record.mjs <url> <steps.json> <out.gif>` | Drives the app with Playwright, outputs an optimised GIF. |
 | `tools/gif/shot.mjs <svg-or-url> <out.png> [ms]` | Screenshot a card (after its animation) or a page, so you can check it. |
+| `tools/archify-theme/theme.py <in.html> <out.html> --accent … --png <prefix>` | Restyles a finished Archify diagram in the card style and captures light/dark PNGs. |
 | `tools/preview/preview.mjs <project> <out>` | GitHub-style local preview of the README and every `docs/` page, to check and to show the user before pushing. |
 | [Archify](https://github.com/tt-a1i/archify) (external, optional) | Flow, sequence, data-flow, lifecycle and ERD diagrams for `docs/`. Install only with the user's OK — see `playbook/08-docs.md`. |
 

@@ -70,6 +70,21 @@ docs/diagrams/<name>-dark.png
 - **Types depend on version.** If the installed Archify lacks a type you need (e.g. ERD in older versions), use Mermaid
   for that diagram and say so.
 
+**Style it like the cards.** Archify's default look (tinted boxes, glows, dashed lanes, grid) doesn't match the README.
+After `finalize` passes, restyle its HTML with the repo-polish theme — pure CSS on Archify's own variables and classes,
+so layout, source links and interactivity are untouched — and capture the light/dark PNGs in the same step:
+
+```bash
+cp docs/diagrams/<name>.html /tmp/<name>.archify.html          # keep Archify's original for re-theming
+uv run --with fonttools --with brotli python <this-repo>/tools/archify-theme/theme.py \
+  /tmp/<name>.archify.html docs/diagrams/<name>.html \
+  --accent '<light>,<dark>' --png docs/diagrams/<name>      # same accent as cards.json
+```
+
+The theme uses Inter and Bricolage Grotesque, the card palette, solid hairline boxes, the accent only for logic and
+gates, and still frames (no glow, no marching dashes) cropped to the drawing. It never changes text widths, because
+Archify measures text to place labels. Look at both PNGs; re-theme from the original if Archify re-renders.
+
 **Embed.** GitHub does not render HTML inside Markdown, so embed the PNGs and link the interactive file:
 
 ```markdown
@@ -81,9 +96,7 @@ docs/diagrams/<name>-dark.png
 <sub>[Interactive version](diagrams/request-flow.html) — download and open in a browser to trace paths and see source links.</sub>
 ```
 
-Get the PNGs from Archify's capture command, which renders light and dark screenshots
-(`node <installed-path>/bin/archify.mjs visual-check docs/diagrams/<name>.html --summary --require-provenance --out-dir <tmp>`),
-or with `tools/gif/shot.mjs` on the HTML. Crop to the diagram if needed. **Look at the images** before embedding.
+The theme step above writes the PNGs. **Look at them** before embedding.
 
 **Mermaid fallback.** If Archify isn't available, write a fenced ```` ```mermaid ```` block (GitHub renders it).
 Prefer `sequenceDiagram` for request flows, `flowchart` for pipelines, `stateDiagram-v2` for lifecycles, `erDiagram`

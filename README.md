@@ -130,6 +130,7 @@ tools/scan/          secrets.sh
 tools/cards/         cards.py (+ embedded-font helper, cached icons)
 tools/gif/           record.mjs (GIF), shot.mjs (screenshots)
 tools/preview/       preview.mjs (local GitHub-style preview of README + docs/)
+tools/archify-theme/ theme.py (Archify diagrams restyled to match the cards)
 examples/nlp-sql/    a complete real run: config, script, cards, GIF
 ```
 
