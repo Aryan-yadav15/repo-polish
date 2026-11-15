@@ -24,7 +24,7 @@ No install, no SaaS. The whole method lives here as plain instructions (`AGENTS.
 Open your AI agent (Claude Code, Codex, Cursor, Copilot agent mode, Gemini CLI, …) and say:
 
 ```text
-Follow https://github.com/<you>/repo-polish/blob/main/AGENTS.md to maintain my project https://github.com/<you>/<project>.
+Follow https://github.com/Aryan-yadav15/repo-polish/blob/main/AGENTS.md to maintain my project https://github.com/<you>/<project>.
 ```
 
 The agent reads `AGENTS.md`, works through the playbook, asks you only for what it can't find (like API keys to run
@@ -50,6 +50,8 @@ the card config and the exact commands to run yourself.
 | 11 | Ship | pull request — never a push to your default branch; asks how you want local files cleaned up |
 
 Have many projects? [`playbook/12-many-projects.md`](playbook/12-many-projects.md) covers triage and doing one per session from a queue.
+
+Starting something new instead? The companion kit [repo-seed](https://github.com/Aryan-yadav15/repo-seed) sets a project up properly from an empty folder.
 
 ## The cards
 
@@ -85,7 +87,7 @@ so they render (and animate) right inside GitHub.
 ## Run the tools yourself
 
 ```bash
-git clone https://github.com/<you>/repo-polish && cd repo-polish
+git clone https://github.com/Aryan-yadav15/repo-polish && cd repo-polish
 npm install && npx playwright install chromium     # GIFs + screenshots (also needs ffmpeg)
 ```
 

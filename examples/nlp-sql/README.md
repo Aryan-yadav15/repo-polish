@@ -2,7 +2,7 @@
 
 A full run of the pipeline on a Next.js + FastAPI + LangChain project that turns questions into SQL.
 
-- **Result:** [README](https://github.com/Aryan-yadav15/Database-NLP-Query/tree/docs/interview-ready-readme) · [pull request](https://github.com/Aryan-yadav15/Database-NLP-Query/pull/1)
+- **Result:** [README](https://github.com/Aryan-yadav15/Database-NLP-Query) · [pull request #1](https://github.com/Aryan-yadav15/Database-NLP-Query/pull/1) (merged)
 - **`cards.json`:** the card config used ([assets/](assets/) are the generated cards)
 - **`steps.json`:** the GIF script (sets the model in a hidden sidebar, asks two questions, waits out a rate limit)
 - **`demo.gif`:** the recorded result
