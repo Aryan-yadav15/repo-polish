@@ -6,7 +6,10 @@ pure CSS injected after Archify's own styles. Layout, validation and interactivi
 
 Run:
   uv run --with fonttools --with brotli python tools/archify-theme/theme.py <in.html> <out.html> \
-      --accent '#6d28d9,#a78bfa' [--png <out-prefix>]      # writes <prefix>-light.png and <prefix>-dark.png
+      --accent '#6d28d9,#a78bfa' [--security …] [--async …] [--png <out-prefix>]
+
+Colour rule: one project accent for the main path and core logic; meaning colours only where the diagram declares
+them (security/policy = red, async = indigo, both overridable); everything else neutral.
 """
 import argparse
 import subprocess
@@ -29,7 +32,7 @@ def hexa(color, alpha):
     return f"rgba({r}, {g}, {b}, {alpha})"
 
 
-def variables(p, accent):
+def variables(p, accent, security, asynch):
     """Archify's variables, mapped onto the card palette. !important beats presets injected at runtime."""
     v = {
         "--bg": p["bg"], "--grid": "transparent", "--canvas-dot": "transparent",
@@ -45,22 +48,24 @@ def variables(p, accent):
         "--cloud-fill": p["card"], "--cloud-stroke": p["rule2"],
         "--messagebus-fill": p["card"], "--messagebus-stroke": p["rule2"],
         "--external-fill": p["bg"], "--external-stroke": p["rule2"],
-        "--security-fill": hexa(accent, .12), "--security-stroke": accent,
+        # meaning colours: used only where the diagram says security/policy or async
+        "--security-fill": hexa(security, .10), "--security-stroke": security,
+        "--polish-async": asynch,
         "--toolbar-bg": p["card"], "--toolbar-border": p["rule"], "--toolbar-text": p["fg"],
         "--toolbar-hover": p["bg"], "--toolbar-menu-bg": p["card"],
     }
     return "".join(f"{k}: {val} !important;" for k, val in v.items())
 
 
-def css(accent_light, accent_dark):
+def css(accent_light, accent_dark, sec=("#d70015", "#ff453a"), asy=("#5856d6", "#7d7aff")):
     fonts = font_css("PolishSans", "Inter", "wght@100..900") + font_css("PolishDisplay", "Bricolage Grotesque", "wght@200..800")
     sans = "'PolishSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
     return f"""
 {fonts}
 :root {{ --archify-sans: {sans} !important; }}
-:root:not([data-theme="dark"]), [data-theme="light"] {{ {variables(PALETTE["light"], accent_light)} }}
-[data-theme="dark"] {{ {variables(PALETTE["dark"], accent_dark)} }}
-@media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ {variables(PALETTE["dark"], accent_dark)} }} }}
+:root:not([data-theme="dark"]), [data-theme="light"] {{ {variables(PALETTE["light"], accent_light, sec[0], asy[0])} }}
+[data-theme="dark"] {{ {variables(PALETTE["dark"], accent_dark, sec[1], asy[1])} }}
+@media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ {variables(PALETTE["dark"], accent_dark, sec[1], asy[1])} }} }}
 
 body, svg text, .toolbar, .card {{ font-family: {sans} !important; }}
 h1, .title, header h1 {{ font-family: 'PolishDisplay', {sans} !important; letter-spacing: -0.02em; }}
@@ -80,10 +85,11 @@ svg [filter], svg g[data-node-id] *, svg rect {{ filter: none !important; }}
 svg text.t-dim {{ font-weight: 700 !important; }}
 rect[fill="url(#grid)"] {{ display: none; }}
 
-/* dashed (secondary) paths, their labels and arrowheads borrow "database" colours in Archify: make them readable */
-path.a-dashed, line.a-dashed {{ stroke: var(--text-muted) !important; }}
-.t-edge-dashed {{ fill: var(--text-muted) !important; }}
-marker[id*="dashed"] path, marker[id*="dashed"] polygon {{ fill: var(--text-muted) !important; stroke: var(--text-muted) !important; }}
+/* "dashed" edges are Archify's async / secondary paths (it colours them with the database purple): give them the
+   async meaning colour so they stay distinct from plain returns */
+path.a-dashed, line.a-dashed {{ stroke: var(--polish-async) !important; }}
+.t-edge-dashed {{ fill: var(--polish-async) !important; }}
+marker[id*="dashed"] path, marker[id*="dashed"] polygon {{ fill: var(--polish-async) !important; stroke: var(--polish-async) !important; }}
 
 /* phase headers: muted small caps; the emphasised phase takes the accent */
 .t-messagebus, .t-frontend, .t-cloud, .t-database, .t-external {{ fill: var(--text-muted) !important; }}
@@ -112,11 +118,13 @@ def main():
     ap.add_argument("src")
     ap.add_argument("out")
     ap.add_argument("--accent", default="#0071e3,#2997ff", help="light,dark accent colours")
+    ap.add_argument("--security", default="#d70015,#ff453a", help="light,dark colour for security/policy paths and gates")
+    ap.add_argument("--async", dest="asynch", default="#5856d6,#7d7aff", help="light,dark colour for async/secondary paths")
     ap.add_argument("--png", help="prefix for <prefix>-light.png / <prefix>-dark.png")
     a = ap.parse_args()
     light, dark = a.accent.split(",")
     html = Path(a.src).read_text()
-    style = f'<style id="repo-polish-theme">{css(light, dark)}</style>'
+    style = f'<style id="repo-polish-theme">{css(light, dark, tuple(a.security.split(",")), tuple(a.asynch.split(",")))}</style>'
     if 'id="repo-polish-theme"' in html:
         raise SystemExit("already themed; theme the original Archify output instead")
     themed = html.replace("</head>", style + "\n</head>", 1)

@@ -81,8 +81,9 @@ uv run --with fonttools --with brotli python <this-repo>/tools/archify-theme/the
   --accent '<light>,<dark>' --png docs/diagrams/<name>      # same accent as cards.json
 ```
 
-The theme uses Inter and Bricolage Grotesque, the card palette, solid hairline boxes, the accent only for logic and
-gates, and still frames (no glow, no marching dashes) cropped to the drawing. It never changes text widths, because
+The theme uses Inter and Bricolage Grotesque, the card palette, solid hairline boxes, the project accent for the main
+path and core logic, **meaning colours** only where the diagram declares them (security/policy red, async indigo —
+override with `--security` / `--async`, never drop them: they carry meaning the legend relies on), and still frames (no glow, no marching dashes) cropped to the drawing. It never changes text widths, because
 Archify measures text to place labels. Look at both PNGs; re-theme from the original if Archify re-renders.
 
 **Embed.** GitHub does not render HTML inside Markdown, so embed the PNGs and link the interactive file:
